@@ -8,14 +8,15 @@
 
   const CATEGORIES = [
     ['all', 'All Chapters', 'book'],
+    ['diagrams', 'Diagrams (7)', 'compass'],
     ['features', 'Concept & Features', 'lightbulb'],
     ['design', 'Design & Mascot', 'palette'],
-    ['pipeline', 'Pipeline', 'windmill'],
+    ['pipeline', 'Pipeline & Meetings', 'windmill'],
     ['compatibility', 'Compatibility', 'laptop'],
-    ['ai', 'Local AI', 'bot'],
+    ['ai', 'Local AI & Agent', 'bot'],
     ['stack', 'Tech Stack & I18n', 'globe'],
     ['speech', 'Speech', 'headphones'],
-    ['security', 'Security', 'lock'],
+    ['security', 'Security & CI/CD', 'lock'],
     ['timeline', '1–1.5 Week Plan', 'calendar'],
   ];
 
@@ -43,10 +44,10 @@
           <div class="row-wrap" style="align-items:center;gap:18px;flex:1 1 560px;">
             <img src="./brand/opero-app-icon.png" alt="OPERO Official App Icon" width="104" height="104" style="width:104px;height:104px;display:block;object-fit:contain;flex-shrink:0;" />
             <div style="min-width:240px;flex:1;">
-              <div class="editorial-kicker" style="display:inline-flex;align-items:center;gap:7px;">${ico('book', 17)}<span>OPERO Product Blueprint &amp; Documentation</span></div>
-              <h2>Architecture, Local AI &amp; 1–1.5 Week Delivery Plan</h2>
+              <div class="editorial-kicker" style="display:inline-flex;align-items:center;gap:7px;">${ico('book', 17)}<span>OPERO v1.0 Product Blueprint &amp; Engineering Architecture</span></div>
+              <h2>Architecture, ERD, Live Pero Agent, Meeting Notes &amp; Delivery Plan</h2>
               <p>
-                Complete product and engineering reference covering core features, minimal design system, 9-stage local AI pipeline, OS compatibility, multilingual architecture, security governance, and the 1 to 1.5 week delivery lifecycle across Planning, Design, Development, Integration, and Testing.
+                Complete product and engineering reference covering core capture, Document Analyzer, OS-level Meeting Notes, Live Multi-Turn Pero Agent, Dual-Core SQLite Vector RAG, 7 interactive architecture/ERD/sequence diagrams, security boundaries, and CI/CD release governance.
               </p>
             </div>
           </div>
@@ -89,7 +90,13 @@
 
     const renderChapters = () => {
       const q = searchQuery.trim().toLowerCase();
-      const filtered = D.CHAPTERS.filter((ch) => (activeCat === 'all' || ch.category === activeCat) && matchesQuery(ch, q));
+      const filtered = D.CHAPTERS.filter((ch) => {
+        const catOk =
+          activeCat === 'all' ||
+          ch.category === activeCat ||
+          (activeCat === 'diagrams' && ch.diagrams && ch.diagrams.length > 0);
+        return catOk && matchesQuery(ch, q);
+      });
 
       document.getElementById('docsCatTabs').innerHTML = CATEGORIES.map(([id, label, iconName]) => `
         <button type="button" class="doc-tab-link ${id === activeCat ? 'active' : ''}" data-cat="${id}">${ico(iconName, 17)}<span>${label}</span></button>
@@ -160,6 +167,28 @@
             </div>
           ` : ''}
 
+          ${(ch.diagrams && ch.diagrams.length && global.PeroDocsDiagrams) ? `
+            <div class="doc-diagrams-stack">
+              ${ch.diagrams.map((diagId) => {
+                const dg = global.PeroDocsDiagrams[diagId];
+                if (!dg) return '';
+                return `
+                  <figure class="doc-diagram-card" data-diagram-id="${escapeHtml(dg.id)}">
+                    <div class="doc-diagram-toolbar">
+                      <div class="doc-diagram-title">${ico('compass', 16)}<span>${escapeHtml(dg.title)}</span></div>
+                      <div class="doc-diagram-actions">
+                        <button type="button" class="btn doc-diagram-expand" data-expand-diag="${escapeHtml(dg.id)}">Expand</button>
+                        <button type="button" class="btn doc-diagram-dl" data-dl-diag="${escapeHtml(dg.id)}">Download SVG</button>
+                      </div>
+                    </div>
+                    <div class="doc-diagram-canvas">${dg.svg}</div>
+                    <figcaption class="doc-diagram-cap">${escapeHtml(dg.caption)}</figcaption>
+                  </figure>
+                `;
+              }).join('')}
+            </div>
+          ` : ''}
+
           ${(ch.tables || []).map((t) => `
             <div style="margin-top:20px;">
               <div class="label-xs" style="margin-bottom:6px;display:flex;align-items:center;gap:7px;">${ico(ch.icon || 'bookmark', 16)}<span>${escapeHtml(t.caption)}</span></div>
@@ -185,6 +214,48 @@
           `).join('')}
         </article>
       `).join('');
+
+      box.querySelectorAll('[data-expand-diag]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const dg = global.PeroDocsDiagrams && global.PeroDocsDiagrams[btn.dataset.expandDiag];
+          if (!dg) return;
+          const modal = document.createElement('div');
+          modal.className = 'doc-diagram-lightbox';
+          modal.setAttribute('role', 'dialog');
+          modal.setAttribute('aria-modal', 'true');
+          modal.setAttribute('aria-label', dg.title);
+          modal.innerHTML = `
+            <div class="doc-diagram-lightbox-inner">
+              <div class="doc-diagram-toolbar">
+                <div class="doc-diagram-title"><span>${escapeHtml(dg.title)}</span></div>
+                <button type="button" class="btn primary doc-lightbox-close">Close</button>
+              </div>
+              <div class="doc-diagram-lightbox-stage">${dg.svg}</div>
+              <p class="doc-diagram-cap">${escapeHtml(dg.caption)}</p>
+            </div>
+          `;
+          const close = () => modal.remove();
+          modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+          modal.querySelector('.doc-lightbox-close').addEventListener('click', close);
+          document.body.appendChild(modal);
+        });
+      });
+
+      box.querySelectorAll('[data-dl-diag]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const dg = global.PeroDocsDiagrams && global.PeroDocsDiagrams[btn.dataset.dlDiag];
+          if (!dg) return;
+          const blob = new Blob([dg.svg.trim()], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `opero-${dg.id}.svg`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        });
+      });
 
       if (global.PeroIcons && global.PeroIcons.animateVisibleBurst) {
         global.PeroIcons.animateVisibleBurst(box);

@@ -450,3 +450,111 @@
   .docs-layout { grid-template-columns: 1fr; }
   .doc-article { border: none; padding: 12px 0; break-inside: avoid; }
 }
+
+/* Interactive Engineering Vector Diagrams & Fullscreen Lightbox */
+.doc-diagrams-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.doc-diagram-card {
+  margin: 0;
+  border: 1px solid #dbe7f3;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 180ms ease, box-shadow 200ms ease;
+}
+
+.doc-diagram-card:hover {
+  border-color: #69bcfc;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.doc-diagram-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8fbff;
+  border-bottom: 1px solid #e2eaf2;
+  flex-wrap: wrap;
+}
+
+.doc-diagram-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #0f172a;
+}
+
+.doc-diagram-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.doc-diagram-canvas {
+  padding: 14px;
+  overflow-x: auto;
+  background: #ffffff;
+}
+
+.doc-diagram-canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 640px;
+}
+
+.doc-diagram-cap {
+  margin: 0;
+  padding: 10px 16px 14px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #526071;
+  border-top: 1px solid #eef4fa;
+}
+
+.doc-diagram-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(15, 23, 42, 0.56);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.doc-diagram-lightbox-inner {
+  width: min(1240px, 96vw);
+  max-height: 92vh;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #b9e0fe;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.28);
+}
+
+.doc-diagram-lightbox-stage {
+  flex: 1;
+  overflow: auto;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.doc-diagram-lightbox-stage svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
