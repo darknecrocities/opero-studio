@@ -1,0 +1,227 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+
+/** Load studio/rig-parts.js vector builders into an isolated sandbox (single path truth). */
+export function loadRigParts(baseDir) {
+  const code = fs.readFileSync(path.join(baseDir, 'studio', 'rig-parts.js'), 'utf8');
+  const win = {};
+  vm.runInNewContext(code, { window: win });
+  return win.PeroRigParts;
+}
+
+/** Extract shared keyframes + exact motion rules from app-code/css/*.css */
+export function extractMotionCss(cssDir, motionId, scopeSelector, includeSpeedVar) {
+  const sharedCss = fs.readFileSync(path.join(cssDir, 'pero-shared.css'), 'utf8');
+  const sharedKfs = sharedCss
+    .split('\n')
+    .reduce((acc, line) => {
+      if (line.trim().startsWith('@keyframes ')) acc.push([line.trim()]);
+      else if (acc.length && !acc[acc.length - 1].done) {
+        acc[acc.length - 1].push(line.trim());
+        if (line.trim() === '}') acc[acc.length - 1].done = true;
+      }
+      return acc;
+    }, [])
+    .map((grp) => grp.filter((x) => typeof x === 'string').join(' '));
+
+  const sliceFiles = fs.readdirSync(cssDir).filter((f) => f.startsWith('pero-motions-') && f.endsWith('.css')).sort();
+  const numMatch = [];
+  const motionLines = [];
+  const prefix = `.pero-motion-${motionId} `;
+
+  for (const file of sliceFiles) {
+    const lines = fs.readFileSync(path.join(cssDir, file), 'utf8').split('\n');
+    let inTarget = false;
+    for (const raw of lines) {
+      const t = raw.trim();
+      if (t.startsWith('/* ') && t.includes(': ')) {
+        inTarget = t.includes(`: ${motionId}`);
+        continue;
+      }
+      if (!inTarget || !t) continue;
+      if (t.startsWith('.pero-motion-')) {
+        const m = t.match(/pero-(\d{2})-/);
+        if (m) numMatch.push(m[1]);
+        let line = t.replace(new RegExp(`\\.pero-motion-${motionId}\\s+`, 'g'), scopeSelector ? `${scopeSelector} ` : '');
+        line = normalizeDuration(line, includeSpeedVar);
+        motionLines.push(line);
+      } else if (t.startsWith('@keyframes ')) {
+        motionLines.push(t);
+      }
+    }
+  }
+
+  return [...sharedKfs, ...motionLines].join('\n    ');
+}
+
+function normalizeDuration(line, includeSpeedVar) {
+  if (includeSpeedVar) {
+    return line.replace(/var\(--pero-speed\)/g, 'var(--pero-speed, 1)');
+  }
+  return line.replace(/calc\(\s*([0-9.]+s)\s*\/\s*var\(--pero-speed\)\s*\)/g, '$1');
+}
+
+function renderFoot(side, pose, pfx) {
+  if (side === 'left') {
+    const ty = pose === 'tip-left' ? 456 : pose === 'step-up' ? 448 : 464;
+    const rot = pose === 'tip-left' ? 12 : pose === 'step-up' ? -12 : -4;
+    return `<g class="pero-foot-left-anim"><g id="pero-foot-left" transform="translate(194, ${ty}) rotate(${rot})">
+      <path d="M -44 4 C -46 -12, -22 -20, 6 -18 C 30 -16, 44 -4, 42 8 C 40 18, 14 20, -10 19 C -32 18, -43 13, -44 4 Z" fill="url(#${pfx}-orange)" stroke="#5A2404" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="-10" cy="-7" rx="14" ry="4.5" fill="#FFE082" opacity="0.65" transform="rotate(-6 -10 -7)"/>
+    </g></g>`;
+  }
+  const ty = pose === 'tip-right' ? 456 : 464;
+  const rot = pose === 'tip-right' ? -12 : 5;
+  return `<g class="pero-foot-right-anim"><g id="pero-foot-right" transform="translate(324, ${ty}) rotate(${rot})">
+    <path d="M -42 8 C -44 -4, -30 -16, -6 -18 C 22 -20, 46 -12, 44 4 C 43 13, 32 18, 10 19 C -14 20, -40 18, -42 8 Z" fill="url(#${pfx}-orange)" stroke="#5A2404" stroke-width="5" stroke-linejoin="round"/>
+    <ellipse cx="10" cy="-7" rx="14" ry="4.5" fill="#FFE082" opacity="0.65" transform="rotate(6 10 -7)"/>
+  </g></g>`;
+}
+
+export function buildMotionSvg(motion, cssDir, parts, options = {}) {
+  const scoped = !!options.scoped;
+  const slug = motion.slug;
+  const pfx = scoped ? `${slug}-pero` : 'pero';
+  const scopeClass = scoped ? `.pero-svg-${slug}` : '';
+  const rootClass = scoped ? ` class="pero-svg pero-svg-${slug}"` : '';
+  const p = motion.pose;
+  const txMatch = p.bodyTransform.match(/translate\(\s*(-?\d+(?:\.\d+)?)/);
+  const shadowTransform = `translate(${txMatch ? txMatch[1] : '0'}, 0)`;
+  const motionCss = extractMotionCss(cssDir, motion.id, scopeClass, scoped);
+  const selPfx = scopeClass ? `${scopeClass} ` : '';
+
+  const dustMarkup = p.dust
+    ? `<g><g class="pero-dust-l" opacity="0"><ellipse cx="174" cy="476" rx="13" ry="6" fill="#CBD5E1"/><circle cx="160" cy="473" r="5" fill="#E2E8F0"/></g><g class="pero-dust-r" opacity="0"><ellipse cx="338" cy="476" rx="13" ry="6" fill="#CBD5E1"/><circle cx="352" cy="473" r="5" fill="#E2E8F0"/></g></g>`
+    : '';
+  const propMarkup = parts.propSvg(p.prop, pfx);
+  const rightArm = `<g id="pero-flipper-right" class="pero-flipper-right-anim">${parts.buildFlipperRightSvg(p.rightFlipper, pfx)}</g>`;
+  const leftArm = `<g id="pero-flipper-left" class="pero-flipper-left-anim">${parts.buildFlipperLeftSvg(p.leftFlipper, pfx)}</g>`;
+  const safeName = String(motion.name).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  return `<svg${rootClass} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="OPERO Penguin Pero - ${safeName}">
+  <defs>
+    <linearGradient id="${pfx}-cap" x1="0.2" y1="0.0" x2="0.8" y2="1.0"><stop offset="0%" stop-color="#7BCEFF" class="pero-cap-stop-light"/><stop offset="60%" stop-color="#69BCFC" class="pero-cap-stop-main"/><stop offset="100%" stop-color="#4FA9F8" class="pero-cap-stop-shade"/></linearGradient>
+    <linearGradient id="${pfx}-jacket" x1="0.15" y1="0.05" x2="0.85" y2="0.95"><stop offset="0%" stop-color="#76C7FC" class="pero-jacket-stop-light"/><stop offset="55%" stop-color="#69BCFC" class="pero-jacket-stop-main"/><stop offset="100%" stop-color="#52AEFA" class="pero-jacket-stop-shade"/></linearGradient>
+    <linearGradient id="${pfx}-navy" x1="0.2" y1="0.1" x2="0.8" y2="0.9"><stop offset="0%" stop-color="#273763"/><stop offset="65%" stop-color="#202E54"/><stop offset="100%" stop-color="#162343"/></linearGradient>
+    <linearGradient id="${pfx}-orange" x1="0.3" y1="0.0" x2="0.7" y2="1.0"><stop offset="0%" stop-color="#FDB936"/><stop offset="60%" stop-color="#FDA326"/><stop offset="100%" stop-color="#F68218"/></linearGradient>
+    <linearGradient id="${pfx}-lens" x1="0.0" y1="0.0" x2="1.0" y2="1.0"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.34"/><stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.05"/><stop offset="100%" stop-color="#69BCFC" stop-opacity="0.12"/></linearGradient>
+    <clipPath id="${pfx}-lens-clip"><circle cx="209" cy="210" r="39.5"/></clipPath>
+    <clipPath id="${pfx}-mag-clip"><circle cx="0" cy="-2" r="21"/></clipPath>
+    <clipPath id="${pfx}-shield-clip"><path d="M 0 -40 L 34 -26 L 34 8 C 34 30, 14 44, 0 50 C -14 44, -34 30, -34 8 L -34 -26 Z"/></clipPath>
+  </defs>
+  <style>
+    ${selPfx}.pero-cap-stop-light { stop-color: var(--pero-cap-light, #7BCEFF); }
+    ${selPfx}.pero-cap-stop-main { stop-color: var(--pero-cap-main, #69BCFC); }
+    ${selPfx}.pero-cap-stop-shade { stop-color: var(--pero-cap-shade, #4FA9F8); }
+    ${selPfx}.pero-jacket-stop-light { stop-color: var(--pero-jacket-light, #76C7FC); }
+    ${selPfx}.pero-jacket-stop-main { stop-color: var(--pero-jacket-main, #69BCFC); }
+    ${selPfx}.pero-jacket-stop-shade { stop-color: var(--pero-jacket-shade, #52AEFA); }
+    ${selPfx}.pero-cap-btn { fill: var(--pero-cap-button, #2D8FED); }
+    ${selPfx}.pero-cap-seam { stroke: var(--pero-cap-seam, #2971C1); }
+    ${selPfx}.pero-cap-hi { stroke: var(--pero-cap-highlight, #A6DBFF); }
+    ${selPfx}.pero-cap-brim { fill: var(--pero-cap-main, #69BCFC); }
+    ${selPfx}.pero-jacket-acc { fill: var(--pero-jacket-accent, #2D8FED); }
+    ${selPfx}.pero-jacket-shd { fill: var(--pero-jacket-shade, #47A2F5); }
+    ${selPfx}.pero-jacket-hi { stroke: var(--pero-jacket-highlight, #9AD7FF); }
+    ${motionCss}
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+  <g transform="${shadowTransform}">
+    <g class="pero-shadow-anim">
+      <ellipse cx="256" cy="485" rx="130" ry="13.5" fill="#08102D" opacity="0.06"/>
+      <ellipse cx="256" cy="484" rx="112" ry="10.5" fill="#08102D" opacity="0.12"/>
+    </g>
+    <g class="pero-foot-shadow-l"><ellipse cx="194" cy="479" rx="40" ry="6.5" fill="#08102D" opacity="0.16"/></g>
+    <g class="pero-foot-shadow-r"><ellipse cx="324" cy="479" rx="40" ry="6.5" fill="#08102D" opacity="0.16"/></g>
+    ${dustMarkup}
+  </g>
+  ${p.prop === 'ai-orbit' ? propMarkup : ''}
+  <g class="pero-body-anim"><g id="pero-root" transform="${p.bodyTransform}">
+    <g class="pero-tail-anim"><g id="pero-tail">
+      <path d="M 156 392 C 134 395, 118 390, 113 384 C 110 402, 124 426, 158 430 Z" fill="#202E54" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+      <path d="M 118 396 C 124 412, 136 422, 155 426" fill="none" stroke="#141E3B" stroke-width="3.5" stroke-linecap="round"/>
+    </g></g>
+    <g id="pero-feet">${renderFoot('left', p.footLeft, pfx)}${renderFoot('right', p.footRight, pfx)}</g>
+    <g id="pero-lower-body">
+      <path d="M 150 388 C 146 436, 184 462, 256 462 C 328 462, 366 436, 362 388 Z" fill="url(#${pfx}-navy)" stroke="#08102D" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M 188 412 C 194 446, 224 457, 256 457 C 288 457, 318 446, 324 412 Z" fill="#FCFCFB" stroke="#08102D" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M 192 434 C 212 450, 300 450, 320 434 C 310 448, 284 455, 256 455 C 228 455, 202 448, 192 434 Z" fill="#DFE4F3"/>
+    </g>
+    ${!p.rightFlipperFront ? rightArm : ''}
+    <g id="pero-torso">
+      <g class="pero-jacket-hem-anim">
+        <path d="M 164 316 C 148 340, 146 382, 152 406 C 176 416, 224 418, 254 416 L 254 320 Z" fill="url(#${pfx}-jacket)" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M 348 316 C 364 342, 366 382, 358 406 C 332 416, 286 418, 260 416 L 260 320 Z" fill="url(#${pfx}-jacket)" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M 253 330 L 263 330 L 263 416 C 259 417, 256 417, 253 416 Z" class="pero-jacket-acc" stroke="#08102D" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M 155 394 C 185 405, 226 406, 251 405 L 251 414 C 222 416, 178 414, 154 404 Z" class="pero-jacket-shd" opacity="0.55"/>
+        <path d="M 355 394 C 325 405, 288 406, 265 405 L 265 414 C 292 416, 332 414, 356 404 Z" class="pero-jacket-shd" opacity="0.55"/>
+      </g>
+      <g class="pero-pocket-anim"><g id="pero-pocket">
+        <path d="M 294 346 L 340 346 L 340 384 C 340 392, 333 397, 324 397 L 310 397 C 301 397, 294 392, 294 384 Z" class="pero-jacket-acc" stroke="#162E66" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M 294 346 L 340 346 L 340 358 L 294 358 Z" fill="#FCFCFB" stroke="#162E66" stroke-width="4" stroke-linejoin="round"/>
+      </g></g>
+      <g class="pero-lanyard-anim"><g id="pero-lanyard">
+        <path d="M 192 315 L 256 334 L 320 315" fill="none" stroke="#1E2C52" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="250" y="325" width="12" height="17" rx="3.5" fill="#DCE4F0" stroke="#08102D" stroke-width="3.5"/>
+        <line x1="253" y1="331" x2="259" y2="331" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+        <rect x="234" y="341" width="44" height="48" rx="8" fill="#202E54" stroke="#08102D" stroke-width="4"/>
+        <rect x="239" y="346" width="34" height="38" rx="4.5" fill="#FCFCFB"/>
+        <g transform="translate(256, 363) rotate(-10)">
+          <path d="M -7 -7 C -1 -11, 8 -8, 9 -1 C 10 6, 4 10, -3 8 C -9 6, -11 -1, -7 -7 Z" fill="none" stroke="#399EF9" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="5" y1="12" x2="12" y2="9" stroke="#399EF9" stroke-width="3.8" stroke-linecap="round"/>
+        </g>
+      </g></g>
+      <g class="pero-collar-l-anim">
+        <path d="M 158 302 C 142 308, 138 324, 152 332 C 176 340, 212 338, 240 328 L 236 308 C 204 316, 174 308, 158 302 Z" fill="url(#${pfx}-jacket)" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M 164 312 C 185 322, 212 324, 232 318" fill="none" class="pero-jacket-hi" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <g class="pero-collar-r-anim">
+        <path d="M 352 302 C 368 308, 372 324, 356 334 C 332 342, 296 340, 272 328 L 276 308 C 308 316, 336 308, 352 302 Z" fill="url(#${pfx}-jacket)" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M 346 312 C 325 322, 300 324, 280 318" fill="none" class="pero-jacket-hi" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g class="pero-head-anim"><g id="pero-head" transform="${p.headTransform}">
+      <path d="M 134 218 C 128 158, 174 114, 258 114 C 344 114, 388 158, 382 222 C 378 280, 336 318, 258 318 C 180 318, 138 278, 134 218 Z" fill="url(#${pfx}-navy)" stroke="#08102D" stroke-width="6.5" stroke-linejoin="round"/>
+      <path d="M 164 218 C 162 178, 188 154, 218 156 C 238 157, 252 172, 260 184 C 268 172, 286 154, 314 154 C 348 154, 370 182, 368 220 C 366 270, 326 308, 260 308 C 194 308, 166 270, 164 218 Z" fill="#FCFCFB" stroke="#08102D" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 176 268 C 200 298, 232 306, 260 306 C 288 306, 324 298, 352 268 C 336 294, 300 308, 260 308 C 220 308, 190 294, 176 268 Z" fill="#DFE4F3"/>
+      <circle cx="209" cy="210" r="39" fill="#FCFCFB"/>
+      <g class="pero-blush-anim">
+        <ellipse cx="186" cy="266" rx="15" ry="8" fill="#FDC6BC" opacity="0.88" transform="rotate(-6 186 266)"/>
+        <ellipse cx="336" cy="262" rx="15.5" ry="8" fill="#FDC6BC" opacity="0.88" transform="rotate(6 336 262)"/>
+      </g>
+      <g id="pero-brows">${parts.browSvg(p.brow)}</g>
+      <g id="pero-eye-left">${parts.eyeLeftSvg(p.leftEye, 0, 0)}</g>
+      <g id="pero-eye-right">${parts.eyeRightSvg(p.rightEye, 0, 0, false)}</g>
+      <g id="pero-beak">${parts.beakSvg(p.beak, `${pfx}-orange`, 1)}</g>
+      <g id="pero-monocle">
+        <g class="pero-monocle-cord-anim"><path d="M 164 202 C 146 210, 136 232, 134 256" fill="none" stroke="#151E35" stroke-width="3.6" stroke-linecap="round"/></g>
+        <circle cx="209" cy="210" r="42" fill="url(#${pfx}-lens)"/>
+        <g clip-path="url(#${pfx}-lens-clip)"><rect class="pero-lens-sweep-anim" x="196" y="162" width="24" height="96" fill="#FFFFFF" opacity="0.38" transform="rotate(24 209 210)"/></g>
+        <path class="pero-monocle-gleam" d="M 184 185 C 194 176, 210 174, 222 178" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.78"/>
+        <circle cx="209" cy="210" r="43" fill="none" stroke="#1B2338" stroke-width="8.5"/><circle cx="209" cy="210" r="46.5" fill="none" stroke="#08102D" stroke-width="2"/><circle cx="209" cy="210" r="39.5" fill="none" stroke="#8592B0" stroke-width="2"/>
+        <circle cx="164" cy="202" r="6" fill="#DCE4F0" stroke="#08102D" stroke-width="3"/><circle cx="163" cy="200.5" r="2" fill="#FFFFFF"/>
+      </g>
+      <g class="pero-cap-anim"><g id="pero-cap" transform="${p.capTransform}">
+        <g class="pero-cap-button-anim"><ellipse cx="236" cy="40" rx="16" ry="7.5" class="pero-cap-btn" stroke="#08102D" stroke-width="5"/></g>
+        <path d="M 140 166 C 134 100, 178 44, 240 42 C 296 40, 344 74, 354 128 C 288 118, 206 130, 140 166 Z" fill="url(#${pfx}-cap)" stroke="#08102D" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M 238 43 C 204 68, 186 108, 184 146" fill="none" class="pero-cap-seam" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 244 43 C 286 60, 314 88, 326 124" fill="none" class="pero-cap-seam" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 164 102 C 174 72, 202 54, 228 50" fill="none" class="pero-cap-hi" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+        <g class="pero-cap-emblem-anim"><g transform="translate(246, 84) rotate(-14)">
+          <path d="M -11 -11 C -2 -17, 12 -13, 14 -2 C 16 9, 7 15, -3 13 C -13 11, -17 0, -11 -11 Z" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="8" y1="21" x2="21" y2="16" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+        </g></g>
+        <g class="pero-cap-visor-anim">
+          <path d="M 192 146 C 254 114, 346 112, 382 142 C 378 152, 366 154, 348 148 C 304 134, 246 136, 192 146 Z" fill="#1E356B" stroke="#08102D" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M 140 166 C 202 126, 302 102, 362 124 C 378 130, 385 138, 380 144 C 344 124, 256 126, 186 158 C 166 167, 150 172, 140 166 Z" class="pero-cap-brim" stroke="#08102D" stroke-width="5.5" stroke-linejoin="round"/>
+          <path d="M 164 154 C 224 124, 306 110, 358 124" fill="none" class="pero-cap-hi" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+        </g>
+      </g></g>
+    </g></g>
+    ${p.rightFlipperFront ? rightArm : ''}
+    ${leftArm}
+    ${p.prop !== 'ai-orbit' ? propMarkup : ''}
+  </g></g>
+</svg>`;
+}

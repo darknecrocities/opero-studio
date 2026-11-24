@@ -1,0 +1,306 @@
+{
+  "mascot": "Pero (OPERO Penguin)",
+  "version": "4.0.0",
+  "source": "assets/images/mascot/Pero_mascot.png",
+  "viewBox": "0 0 512 512",
+  "pngSize": [
+    1024,
+    1024
+  ],
+  "palette": {
+    "outline": "#08102D",
+    "navy": "#202E54",
+    "navyShade": "#162343",
+    "capMain": "#69BCFC",
+    "capLight": "#7BCEFF",
+    "capShade": "#4FA9F8",
+    "jacketMain": "#69BCFC",
+    "jacketLight": "#76C7FC",
+    "jacketAccent": "#2D8FED",
+    "white": "#FCFCFB",
+    "whiteShade": "#DFE4F3",
+    "beakBase": "#FDA326",
+    "beakLight": "#FDB936",
+    "beakShade": "#FC7414",
+    "blush": "#FDC6BC",
+    "monocleRim": "#1B2338"
+  },
+  "supportsIndependentCapAndJacketColor": true,
+  "count": 20,
+  "motions": [
+    {
+      "number": "01",
+      "id": "idle-breathe",
+      "slug": "01-idle-breathe",
+      "name": "Idle Breathe",
+      "operoStates": [
+        "ready"
+      ],
+      "description": "Living companion idle: 3-beat diaphragm breath, staggered jacket lapels, double-blink + curiosity glance, lanyard swing, cap button bob, tail twitch, monocle sweep, and alternating right-heel micro-flex with grounded footing shadows.",
+      "durationMs": 2800,
+      "loop": true,
+      "svg": "svg/01-idle-breathe.svg",
+      "png": "png/01-idle-breathe.png"
+    },
+    {
+      "number": "02",
+      "id": "wave-hello",
+      "slug": "02-wave-hello",
+      "name": "Wave Hello",
+      "operoStates": [
+        "onboarding"
+      ],
+      "description": "Energetic onboarding host: weight-transfer sway, 2-beat Figure-8 wave snap, counter-balance right wing, double-chirp beak, rhythmic right toe tap with shrinking foot shadow, cap visor tip, and expanding paw greeting ripple.",
+      "durationMs": 1800,
+      "loop": true,
+      "svg": "svg/02-wave-hello.svg",
+      "png": "png/02-wave-hello.png"
+    },
+    {
+      "number": "03",
+      "id": "thumbs-up",
+      "slug": "03-thumbs-up",
+      "name": "Signature Thumbs Up",
+      "operoStates": [],
+      "description": "Hero approval stamp: anticipation squash dip into thumbs-up overshoot lifting left collar, locked left-foot plant with right mini-stomp settle, wink squeeze, rotating hero starburst, cap emblem gleam flash, and proud lanyard hop.",
+      "durationMs": 2000,
+      "loop": true,
+      "svg": "svg/03-thumbs-up.svg",
+      "png": "png/03-thumbs-up.png"
+    },
+    {
+      "number": "04",
+      "id": "recording-active",
+      "slug": "04-recording-active",
+      "name": "Recording Active",
+      "operoStates": [
+        "recording"
+      ],
+      "description": "Live workflow director: optical scanning pupils + furrowed brows, baton cue beats on raised flipper, hip-brace counter pulse, 4-bar equalizer pill, dual crimson telemetry sonar rings, whispered cue beak, and COM-tracking ground/foot shadows.",
+      "durationMs": 1600,
+      "loop": true,
+      "svg": "svg/04-recording-active.svg",
+      "png": "png/04-recording-active.png"
+    },
+    {
+      "number": "05",
+      "id": "capture-paused",
+      "slug": "05-capture-paused",
+      "name": "Capture Paused",
+      "operoStates": [
+        "paused"
+      ],
+      "description": "Restful sigh hold: deep suspended chest drop, cozy inward tucked flippers flexing together, dreamy brow & eye settle, monocle cord pendulum, breathing pause bars with frost aura, relaxed tail tuck, and wide settled ground/foot shadows.",
+      "durationMs": 2600,
+      "loop": true,
+      "svg": "svg/05-capture-paused.svg",
+      "png": "png/05-capture-paused.png"
+    },
+    {
+      "number": "06",
+      "id": "camera-snap",
+      "slug": "06-camera-snap",
+      "name": "Screenshot Snap",
+      "operoStates": [
+        "capturing"
+      ],
+      "description": "4-beat shutter precision: forward aim -> click squeeze -> kickback recoil with popped right heel + shrinking right-foot shadow, pinching viewfinder brackets, golden starburst + radial flash ring, blue iris pulse, and lagged cap button pop.",
+      "durationMs": 1700,
+      "loop": true,
+      "svg": "svg/06-camera-snap.svg",
+      "png": "png/06-camera-snap.png"
+    },
+    {
+      "number": "07",
+      "id": "monocle-inspect",
+      "slug": "07-monocle-inspect",
+      "name": "Monocle Inspect",
+      "operoStates": [
+        "ocr"
+      ],
+      "description": "Forensic OCR scrutiny: forward lean gripping & twisting monocle rim, laser scan bar sequentially illuminating text lines, pulsing target reticles, rapid reading eye saccades, tipped brim, tail rudder, and forward-weighted footing shadow.",
+      "durationMs": 2200,
+      "loop": true,
+      "svg": "svg/07-monocle-inspect.svg",
+      "png": "png/07-monocle-inspect.png"
+    },
+    {
+      "number": "08",
+      "id": "thinking-processing",
+      "slug": "08-thinking-processing",
+      "name": "Local AI Thinking",
+      "operoStates": [
+        "processing"
+      ],
+      "description": "Local AI ideation: double-tap chin contemplation into eureka nod, staggered cloud pearls + triple-dot wave, timed synapse spark + halo ring, upward gaze + curious brow arch, 3/4 right-toe tap with dynamic foot shadow, and cap emblem pulse.",
+      "durationMs": 2400,
+      "loop": true,
+      "svg": "svg/08-thinking-processing.svg",
+      "png": "png/08-thinking-processing.png"
+    },
+    {
+      "number": "09",
+      "id": "writing-manual",
+      "slug": "09-writing-manual",
+      "name": "Drafting Manual",
+      "operoStates": [
+        "drafting"
+      ],
+      "description": "Purposeful penmanship: elliptic cursive stylus trace drawing dual blue ink lines + gliding orange nib spark, flexing paper bounce, ping-pong tracking eyes, 2x enthusiastic tail wag, carriage-return head nod, and diagonal lean footing shadow.",
+      "durationMs": 1400,
+      "loop": true,
+      "svg": "svg/09-writing-manual.svg",
+      "png": "png/09-writing-manual.png"
+    },
+    {
+      "number": "10",
+      "id": "annotating-arrows",
+      "slug": "10-annotating-arrows",
+      "name": "Studio Annotating",
+      "operoStates": [
+        "annotating"
+      ],
+      "description": "Studio presenter flourish: pullback windup into sweeping pointer extension, expanding arrow beacon ring + card perspective tilt, popping + badge glow, cheerful chirp, rear wing balance, and right-toe tap with decoupled foot shadow.",
+      "durationMs": 2000,
+      "loop": true,
+      "svg": "svg/10-annotating-arrows.svg",
+      "png": "png/10-annotating-arrows.png"
+    },
+    {
+      "number": "11",
+      "id": "magnifying-search",
+      "slug": "11-magnifying-search",
+      "name": "Workflow Search",
+      "operoStates": [
+        "searching"
+      ],
+      "description": "Detective sleuth prowl: wide figure-8 magnifier sweep with lens gleam & clue sparkles, crouching knee bounce at turnarounds, creeping heel-toe rock, tracking eyes, tipping cap brim, tail rudder, and left-to-right prowling COM shadow.",
+      "durationMs": 2200,
+      "loop": true,
+      "svg": "svg/11-magnifying-search.svg",
+      "png": "png/11-magnifying-search.png"
+    },
+    {
+      "number": "12",
+      "id": "needs-review-alert",
+      "slug": "12-needs-review-alert",
+      "name": "Needs Review",
+      "operoStates": [
+        "needs-review"
+      ],
+      "description": "Human-gate double-take: crisp head-snap double-take, symmetrical collar shoulder shrug (\"Hmm?\"), nervous foreground chin-tap, arched brow glance, quivering O-mouth, rocking amber triangle with dual pulse rings, and weight-shifting ankle shadow.",
+      "durationMs": 2100,
+      "loop": true,
+      "svg": "svg/12-needs-review-alert.svg",
+      "png": "png/12-needs-review-alert.png"
+    },
+    {
+      "number": "13",
+      "id": "verified-celebrate",
+      "slug": "13-verified-celebrate",
+      "name": "Verified Draft",
+      "operoStates": [
+        "verified-draft"
+      ],
+      "description": "Clean audit hop: ground squash into crisp bounded cheer leap shrinking main & dual foot shadows cleanly in mid-air, V-victory arm pump, asymmetric scissor-kick tiptoes, slamming emerald check stamp + shockwave ring, and 3 twinkling stars.",
+      "durationMs": 1500,
+      "loop": true,
+      "svg": "svg/13-verified-celebrate.svg",
+      "png": "png/13-verified-celebrate.png"
+    },
+    {
+      "number": "14",
+      "id": "export-document",
+      "slug": "14-export-document",
+      "name": "Export Document",
+      "operoStates": [
+        "exported"
+      ],
+      "description": "Document dispatch heave: windup crouch into upward right-arm toss launching PDF skyward with speed ticks, left-arm brace swing, upward visor + sky-tracking pupils, right-heel push-off shrinking foot shadow, and planted left weight lock.",
+      "durationMs": 1900,
+      "loop": true,
+      "svg": "svg/14-export-document.svg",
+      "png": "png/14-export-document.png"
+    },
+    {
+      "number": "15",
+      "id": "model-loading",
+      "slug": "15-model-loading",
+      "name": "Orchestrating AI",
+      "operoStates": [
+        "model-setup"
+      ],
+      "description": "AI maestro levitation: sinusoidal zero-G hover softening altitude-reactive ground & foot shadows, counter-conducting orb arms, clockwise outer orbital ring + counter-clockwise inner dashed ring, pulsing satellites, and floating hem wave.",
+      "durationMs": 2200,
+      "loop": true,
+      "svg": "svg/15-model-loading.svg",
+      "png": "png/15-model-loading.png"
+    },
+    {
+      "number": "16",
+      "id": "privacy-shield",
+      "slug": "16-privacy-shield",
+      "name": "Privacy Guard",
+      "operoStates": [
+        "privacy"
+      ],
+      "description": "Local-first sentry guard: wide fortress brace stomp anchoring thick footing shadows (+12px COM shift), tactical shield brace forward with prismatic sweep glaze + outer ward pulse, perimeter-scanning pupils, and pulsing emerald seal.",
+      "durationMs": 2400,
+      "loop": true,
+      "svg": "svg/16-privacy-shield.svg",
+      "png": "png/16-privacy-shield.png"
+    },
+    {
+      "number": "17",
+      "id": "walk-waddle",
+      "slug": "17-walk-waddle",
+      "name": "Penguin Waddle",
+      "operoStates": [],
+      "description": "4-beat penguin waddle gait: elliptical alternating step clearances without floor clip, torso roll counter-balanced by head horizon lock, opposing flipper swings, 2x cap button hop, velocity speed streaks, dust puffs, and inverse L/R foot shadows.",
+      "durationMs": 1100,
+      "loop": true,
+      "svg": "svg/17-walk-waddle.svg",
+      "png": "png/17-walk-waddle.png"
+    },
+    {
+      "number": "18",
+      "id": "jump-cheer",
+      "slug": "18-jump-cheer",
+      "name": "Milestone Cheer",
+      "operoStates": [],
+      "description": "Milestone 4-stage leap: deep anticipation crouch -> vertical stretch apex (`0.58x` main shadow & `0.30x` vanishing foot shadows) -> mid-air scissor kick -> landing stomp with twin dust clouds, 4 tumbling confetti pieces, and parachute cap snapback.",
+      "durationMs": 1400,
+      "loop": true,
+      "svg": "svg/18-jump-cheer.svg",
+      "png": "png/18-jump-cheer.png"
+    },
+    {
+      "number": "19",
+      "id": "sleep-standby",
+      "slug": "19-sleep-standby",
+      "name": "Standby Sleep",
+      "operoStates": [
+        "standby"
+      ],
+      "description": "REM nap cycle: slow belly inhale widening grounded shadows -> heavy drowsy head droop with mini-catch settle, soft snore beak puff, drooping brows & relaxed floor tail, folded wing breathe, and spiraling S-curve z-z-Z trajectory.",
+      "durationMs": 3200,
+      "loop": true,
+      "svg": "svg/19-sleep-standby.svg",
+      "png": "png/19-sleep-standby.png"
+    },
+    {
+      "number": "20",
+      "id": "error-recover",
+      "slug": "20-error-recover",
+      "name": "Error & Recover",
+      "operoStates": [
+        "error"
+      ],
+      "description": "Two-act recovery arc: Act I startled hop recoil shrinking ground & right-foot shadows, wing tremor shakes, crown cap pop-up, wide eye tremor & crimson alert shockwaves -> Act II stomp landing dust puff, relief exhale, calming double-blink & steady stance.",
+      "durationMs": 2200,
+      "loop": true,
+      "svg": "svg/20-error-recover.svg",
+      "png": "png/20-error-recover.png"
+    }
+  ]
+}

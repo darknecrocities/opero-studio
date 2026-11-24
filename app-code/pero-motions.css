@@ -1,0 +1,4 @@
+/* OPERO Pero Mascot — Barrel Stylesheet (Shared + Motions 01–10) */
+@import './css/pero-shared.css';
+@import './css/pero-motions-01-05.css';
+@import './css/pero-motions-06-10.css';

@@ -1,0 +1,54 @@
+/* OPERO Pero Mascot — Shared Motion Primitives & Reduced-Motion Safety */
+.pero-svg {
+  --pero-speed: 1;
+  display: block;
+}
+
+.pero-paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pero-svg *,
+  .pero-svg *::before,
+  .pero-svg *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.pero-reduced * {
+  animation: none !important;
+  transition: none !important;
+}
+
+@keyframes pero-blink-cycle {
+  0%, 84%, 91%, 100% { transform: scaleY(1); }
+  88%, 94% { transform: scaleY(0.08); }
+}
+
+@keyframes pero-gleam-soft {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
+@keyframes pero-lens-sweep {
+  0%, 18% { transform: translateX(-90px); opacity: 0; }
+  50% { opacity: 0.48; }
+  82%, 100% { transform: translateX(90px); opacity: 0; }
+}
+
+@keyframes pero-blush-soft {
+  0%, 100% { opacity: 0.84; transform: scale(0.98); }
+  50% { opacity: 0.96; transform: scale(1.05); }
+}
+
+@keyframes pero-blush-warm {
+  0%, 100% { opacity: 0.85; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes pero-emblem-pop {
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.12); opacity: 1; }
+}

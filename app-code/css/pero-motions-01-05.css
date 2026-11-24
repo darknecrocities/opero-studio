@@ -1,0 +1,213 @@
+/* 01: idle-breathe — Asymmetric living companion breath + weight shift */
+.pero-motion-idle-breathe .pero-shadow-anim { animation: pero-01-shadow calc(2.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 484px; }
+.pero-motion-idle-breathe .pero-foot-shadow-l { animation: pero-01-fshad-l calc(5.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 194px 479px; }
+.pero-motion-idle-breathe .pero-foot-shadow-r { animation: pero-01-fshad-r calc(5.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 479px; }
+.pero-motion-idle-breathe .pero-foot-right-anim { animation: pero-01-foot-r calc(5.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 462px; }
+.pero-motion-idle-breathe .pero-body-anim { animation: pero-01-body calc(2.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 464px; }
+.pero-motion-idle-breathe .pero-jacket-hem-anim { animation: pero-01-hem calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.05s / var(--pero-speed)); transform-origin: 256px 404px; }
+.pero-motion-idle-breathe .pero-collar-l-anim { animation: pero-01-collar-l calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.09s / var(--pero-speed)); transform-origin: 216px 324px; }
+.pero-motion-idle-breathe .pero-collar-r-anim { animation: pero-01-collar-r calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.09s / var(--pero-speed)); transform-origin: 296px 324px; }
+.pero-motion-idle-breathe .pero-pocket-anim { animation: pero-01-pocket calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.14s / var(--pero-speed)); transform-origin: 317px 358px; }
+.pero-motion-idle-breathe .pero-head-anim { animation: pero-01-head calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.1s / var(--pero-speed)); transform-origin: 256px 295px; }
+.pero-motion-idle-breathe .pero-cap-anim { animation: pero-01-cap calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.16s / var(--pero-speed)); transform-origin: 256px 120px; }
+.pero-motion-idle-breathe .pero-cap-button-anim { animation: pero-01-capbtn calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.22s / var(--pero-speed)); transform-origin: 236px 40px; }
+.pero-motion-idle-breathe .pero-cap-visor-anim { animation: pero-01-visor calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.18s / var(--pero-speed)); transform-origin: 240px 142px; }
+.pero-motion-idle-breathe .pero-lanyard-anim { animation: pero-01-lanyard calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.12s / var(--pero-speed)); transform-origin: 256px 322px; }
+.pero-motion-idle-breathe .pero-tail-anim { animation: pero-01-tail calc(2.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 156px 412px; }
+.pero-motion-idle-breathe .pero-flipper-left-anim { animation: pero-01-arm-l calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.06s / var(--pero-speed)); transform-origin: 162px 328px; }
+.pero-motion-idle-breathe .pero-flipper-right-anim { animation: pero-01-arm-r calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.06s / var(--pero-speed)); transform-origin: 348px 328px; }
+.pero-motion-idle-breathe .pero-eye-blink-l { animation: pero-blink-cycle calc(4.4s / var(--pero-speed)) ease-in-out infinite; transform-origin: 212px 212px; }
+.pero-motion-idle-breathe .pero-eye-blink-r { animation: pero-blink-cycle calc(4.4s / var(--pero-speed)) ease-in-out infinite calc(0.03s / var(--pero-speed)); transform-origin: 318px 212px; }
+.pero-motion-idle-breathe .pero-brow-l-anim { animation: pero-01-brow calc(4.4s / var(--pero-speed)) ease-in-out infinite; transform-origin: 214px 184px; }
+.pero-motion-idle-breathe .pero-brow-r-anim { animation: pero-01-brow calc(4.4s / var(--pero-speed)) ease-in-out infinite; transform-origin: 318px 184px; }
+.pero-motion-idle-breathe .pero-pupil-anim { animation: pero-01-pupil calc(5.6s / var(--pero-speed)) ease-in-out infinite; }
+.pero-motion-idle-breathe .pero-blush-anim { animation: pero-blush-soft calc(2.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 261px 264px; }
+.pero-motion-idle-breathe .pero-beak-lower-anim { animation: pero-01-beak calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.1s / var(--pero-speed)); transform-origin: 262px 245px; }
+.pero-motion-idle-breathe .pero-monocle-cord-anim { animation: pero-01-cord calc(2.8s / var(--pero-speed)) ease-in-out infinite calc(0.16s / var(--pero-speed)); transform-origin: 164px 202px; }
+.pero-motion-idle-breathe .pero-lens-sweep-anim { animation: pero-lens-sweep calc(4.2s / var(--pero-speed)) ease-in-out infinite; }
+.pero-motion-idle-breathe .pero-monocle-gleam { animation: pero-gleam-soft calc(3.6s / var(--pero-speed)) ease-in-out infinite; }
+@keyframes pero-01-shadow { 0%, 100% { transform: scaleX(1); opacity: 0.96; } 42% { transform: scaleX(1.045); opacity: 1.08; } }
+@keyframes pero-01-fshad-l { 0%, 100% { transform: scale(1, 1); opacity: 1; } 50% { transform: scale(1.05, 1.04); opacity: 1.12; } }
+@keyframes pero-01-fshad-r { 0%, 100% { transform: scale(1, 1); opacity: 1; } 50% { transform: scale(0.86, 0.9); opacity: 0.72; } }
+@keyframes pero-01-foot-r { 0%, 42%, 64%, 100% { transform: rotate(0deg) translateY(0px); } 52% { transform: rotate(-4deg) translateY(-2.5px); } }
+@keyframes pero-01-body { 0%, 100% { transform: translateY(0px) scale(1, 1); } 42% { transform: translateY(3px) scale(1.022, 0.98); } 56% { transform: translateY(2.2px) scale(1.016, 0.985); } }
+@keyframes pero-01-hem { 0%, 100% { transform: scale(1, 1); } 45% { transform: scale(1.028, 0.982); } }
+@keyframes pero-01-collar-l { 0%, 100% { transform: rotate(0deg); } 45% { transform: rotate(-2.8deg) translateY(-1.4px); } }
+@keyframes pero-01-collar-r { 0%, 100% { transform: rotate(0deg); } 45% { transform: rotate(2.8deg) translateY(-1.4px); } }
+@keyframes pero-01-pocket { 0%, 100% { transform: translateY(0px); } 45% { transform: translateY(1.4px); } }
+@keyframes pero-01-head { 0%, 100% { transform: translateY(0px) rotate(-1deg); } 46% { transform: translateY(3px) rotate(1.6deg); } }
+@keyframes pero-01-cap { 0%, 100% { transform: translateY(0px) rotate(0deg); } 46% { transform: translateY(1.6px) rotate(1.4deg); } }
+@keyframes pero-01-capbtn { 0%, 100% { transform: translateY(0px) scale(1, 1); } 48% { transform: translateY(-1px) scale(1.05, 0.95); } }
+@keyframes pero-01-visor { 0%, 100% { transform: rotate(0deg); } 48% { transform: rotate(1deg); } }
+@keyframes pero-01-lanyard { 0%, 100% { transform: rotate(-2.4deg); } 48% { transform: rotate(2.6deg); } }
+@keyframes pero-01-tail { 0%, 58%, 78%, 100% { transform: rotate(0deg); } 64% { transform: rotate(7.5deg); } 71% { transform: rotate(-2deg); } }
+@keyframes pero-01-arm-l { 0%, 100% { transform: rotate(0deg); } 46% { transform: rotate(4.8deg); } }
+@keyframes pero-01-arm-r { 0%, 100% { transform: rotate(0deg); } 46% { transform: rotate(-4.8deg); } }
+@keyframes pero-01-brow { 0%, 84%, 100% { transform: translateY(0px); } 50% { transform: translateY(-1.6px); } 89% { transform: translateY(1.8px); } }
+@keyframes pero-01-pupil { 0%, 38%, 100% { transform: translate(0px, 0px); } 50%, 66% { transform: translate(2.8px, -0.8px); } 80%, 90% { transform: translate(-2px, 0.4px); } }
+@keyframes pero-01-beak { 0%, 100% { transform: translateY(0px); } 48% { transform: translateY(1.2px); } }
+@keyframes pero-01-cord { 0%, 100% { transform: rotate(-2.5deg); } 48% { transform: rotate(3deg); } }
+
+/* 02: wave-hello — Onboarding figure-8 wave, chirp & tapping foot shadow */
+.pero-motion-wave-hello .pero-shadow-anim { animation: pero-02-shadow calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 484px; }
+.pero-motion-wave-hello .pero-foot-shadow-l { animation: pero-02-fshad-l calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 194px 479px; }
+.pero-motion-wave-hello .pero-foot-shadow-r { animation: pero-02-fshad-r calc(0.9s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 479px; }
+.pero-motion-wave-hello .pero-body-anim { animation: pero-02-body calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 464px; }
+.pero-motion-wave-hello .pero-collar-l-anim { animation: pero-02-collar-l calc(0.9s / var(--pero-speed)) ease-in-out infinite calc(0.05s / var(--pero-speed)); transform-origin: 216px 324px; }
+.pero-motion-wave-hello .pero-collar-r-anim { animation: pero-02-collar-r calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 296px 324px; }
+.pero-motion-wave-hello .pero-pocket-anim { animation: pero-02-pocket calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 317px 358px; }
+.pero-motion-wave-hello .pero-lanyard-anim { animation: pero-02-lanyard calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.08s / var(--pero-speed)); transform-origin: 256px 322px; }
+.pero-motion-wave-hello .pero-head-anim { animation: pero-02-head calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.05s / var(--pero-speed)); transform-origin: 256px 290px; }
+.pero-motion-wave-hello .pero-cap-anim { animation: pero-02-cap calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.11s / var(--pero-speed)); transform-origin: 256px 120px; }
+.pero-motion-wave-hello .pero-cap-visor-anim { animation: pero-02-visor calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.14s / var(--pero-speed)); transform-origin: 240px 142px; }
+.pero-motion-wave-hello .pero-flipper-left-anim { animation: pero-02-wave calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 158px 326px; }
+.pero-motion-wave-hello .pero-flipper-right-anim { animation: pero-02-arm-r calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 348px 328px; }
+.pero-motion-wave-hello .pero-tail-anim { animation: pero-02-tail calc(0.9s / var(--pero-speed)) ease-in-out infinite; transform-origin: 156px 412px; }
+.pero-motion-wave-hello .pero-foot-right-anim { animation: pero-02-foot-r calc(0.9s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 456px; }
+.pero-motion-wave-hello .pero-eye-blink-l { animation: pero-blink-cycle calc(3.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 212px 212px; }
+.pero-motion-wave-hello .pero-brow-l-anim { animation: pero-02-brow calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 214px 184px; }
+.pero-motion-wave-hello .pero-blush-anim { animation: pero-blush-warm calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 261px 264px; }
+.pero-motion-wave-hello .pero-beak-lower-anim { animation: pero-02-beak calc(0.9s / var(--pero-speed)) ease-in-out infinite; transform-origin: 262px 245px; }
+.pero-motion-wave-hello .pero-spark-1 { animation: pero-02-spark-a calc(1.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 74px 206px; }
+.pero-motion-wave-hello .pero-spark-2 { animation: pero-02-spark-b calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.25s / var(--pero-speed)); transform-origin: 102px 174px; }
+.pero-motion-wave-hello .pero-spark-3 { animation: pero-02-spark-a calc(1.8s / var(--pero-speed)) ease-in-out infinite calc(0.5s / var(--pero-speed)); transform-origin: 62px 176px; }
+.pero-motion-wave-hello .pero-spark-ring { animation: pero-02-ring calc(1.8s / var(--pero-speed)) ease-out infinite; transform-origin: 114px 232px; }
+@keyframes pero-02-shadow { 0%, 100% { transform: translateX(-5px) scaleX(0.98); opacity: 1; } 50% { transform: translateX(3px) scaleX(1.03); opacity: 0.92; } }
+@keyframes pero-02-fshad-l { 0%, 100% { transform: scale(1.06, 1.04); opacity: 1.1; } 50% { transform: scale(0.96, 0.96); opacity: 0.94; } }
+@keyframes pero-02-fshad-r { 0%, 100% { transform: scale(0.94, 0.96); opacity: 0.92; } 50% { transform: scale(0.66, 0.72); opacity: 0.42; } }
+@keyframes pero-02-body { 0%, 100% { transform: rotate(-3deg) translateY(0px); } 50% { transform: rotate(2deg) translateY(-3px); } }
+@keyframes pero-02-collar-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-7.5deg) translateY(-2.5px); } }
+@keyframes pero-02-collar-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(3.5deg); } }
+@keyframes pero-02-pocket { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes pero-02-lanyard { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(5.5deg); } }
+@keyframes pero-02-head { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(4.5deg); } }
+@keyframes pero-02-cap { 0%, 100% { transform: rotate(-1.5deg); } 28% { transform: rotate(-4deg) translateY(-1px); } 58% { transform: rotate(4deg); } }
+@keyframes pero-02-visor { 0%, 100% { transform: rotate(0deg); } 28% { transform: rotate(-2.5deg); } }
+@keyframes pero-02-wave { 0%, 100% { transform: rotate(8deg) translate(0px, 0px); } 25% { transform: rotate(-18deg) translate(-2px, -3px); } 50% { transform: rotate(5deg) translate(1px, 1px); } 75% { transform: rotate(-15deg) translate(-2px, -2px); } }
+@keyframes pero-02-arm-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-6.5deg); } }
+@keyframes pero-02-tail { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(10deg); } }
+@keyframes pero-02-foot-r { 0%, 100% { transform: rotate(0deg) translateY(0px); } 50% { transform: rotate(-12deg) translateY(-4px); } }
+@keyframes pero-02-brow { 0%, 100% { transform: translateY(0px); } 35% { transform: translateY(-3px); } }
+@keyframes pero-02-beak { 0%, 35%, 70%, 100% { transform: scaleY(1); } 20%, 52% { transform: translateY(2.2px) scaleY(1.16); } }
+@keyframes pero-02-spark-a { 0%, 100% { opacity: 0.4; transform: scale(0.76) rotate(0deg); } 50% { opacity: 1; transform: scale(1.22) rotate(32deg); } }
+@keyframes pero-02-spark-b { 0%, 100% { opacity: 0.35; transform: translateY(2px) scale(0.8); } 50% { opacity: 1; transform: translateY(-6px) scale(1.25); } }
+@keyframes pero-02-ring { 0% { opacity: 0.65; transform: scale(0.7); } 80%, 100% { opacity: 0; transform: scale(2.1); } }
+
+/* 03: thumbs-up — Spring anticipation dip -> heroic approval stamp */
+.pero-motion-thumbs-up .pero-shadow-anim { animation: pero-03-shadow calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 484px; }
+.pero-motion-thumbs-up .pero-foot-shadow-l { animation: pero-03-fshad-l calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 194px 479px; }
+.pero-motion-thumbs-up .pero-foot-shadow-r { animation: pero-03-fshad-r calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 479px; }
+.pero-motion-thumbs-up .pero-foot-right-anim { animation: pero-03-foot-r calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 462px; }
+.pero-motion-thumbs-up .pero-body-anim { animation: pero-03-body calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 464px; }
+.pero-motion-thumbs-up .pero-collar-l-anim { animation: pero-03-collar-l calc(2s / var(--pero-speed)) ease-in-out infinite calc(0.04s / var(--pero-speed)); transform-origin: 216px 324px; }
+.pero-motion-thumbs-up .pero-lanyard-anim { animation: pero-03-lanyard calc(2s / var(--pero-speed)) ease-in-out infinite calc(0.08s / var(--pero-speed)); transform-origin: 256px 322px; }
+.pero-motion-thumbs-up .pero-head-anim { animation: pero-03-head calc(2s / var(--pero-speed)) ease-in-out infinite calc(0.05s / var(--pero-speed)); transform-origin: 256px 290px; }
+.pero-motion-thumbs-up .pero-cap-anim { animation: pero-03-cap calc(2s / var(--pero-speed)) ease-in-out infinite calc(0.11s / var(--pero-speed)); transform-origin: 256px 120px; }
+.pero-motion-thumbs-up .pero-cap-emblem-anim { animation: pero-03-emblem calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 246px 84px; }
+.pero-motion-thumbs-up .pero-flipper-left-anim { animation: pero-03-thumb calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 170px 344px; }
+.pero-motion-thumbs-up .pero-flipper-right-anim { animation: pero-03-arm-r calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 348px 328px; }
+.pero-motion-thumbs-up .pero-eye-blink-l { animation: pero-blink-cycle calc(4.2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 212px 212px; }
+.pero-motion-thumbs-up .pero-brow-l-anim { animation: pero-03-brow calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 214px 184px; }
+.pero-motion-thumbs-up .pero-blush-anim { animation: pero-blush-warm calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 261px 264px; }
+.pero-motion-thumbs-up .pero-lens-sweep-anim { animation: pero-03-lens calc(2s / var(--pero-speed)) ease-in-out infinite; }
+.pero-motion-thumbs-up .pero-spark-1 { animation: pero-03-spark-a calc(2s / var(--pero-speed)) ease-in-out infinite; transform-origin: 118px 258px; }
+.pero-motion-thumbs-up .pero-spark-2 { animation: pero-03-spark-b calc(2s / var(--pero-speed)) ease-in-out infinite calc(0.2s / var(--pero-speed)); transform-origin: 138px 236px; }
+.pero-motion-thumbs-up .pero-spark-ring { animation: pero-03-ring calc(2s / var(--pero-speed)) ease-out infinite; transform-origin: 172px 288px; }
+@keyframes pero-03-shadow { 0%, 100% { transform: scaleX(1); opacity: 0.98; } 18% { transform: scaleX(1.07); opacity: 1.12; } 44% { transform: translateX(-3px) scaleX(0.91); opacity: 0.84; } }
+@keyframes pero-03-fshad-l { 0%, 100% { transform: scale(1, 1); opacity: 1; } 18%, 45% { transform: scale(1.12, 1.06); opacity: 1.18; } }
+@keyframes pero-03-fshad-r { 0%, 100% { transform: scale(1, 1); opacity: 1; } 38% { transform: scale(0.72, 0.78); opacity: 0.52; } 56% { transform: scale(1.08, 1.04); opacity: 1.1; } }
+@keyframes pero-03-foot-r { 0%, 24%, 64%, 100% { transform: rotate(0deg) translateY(0px); } 38% { transform: rotate(-7deg) translateY(-4px); } 54% { transform: rotate(2deg) translateY(1px); } }
+@keyframes pero-03-body { 0%, 100% { transform: translateY(0px) scale(1, 1); } 18% { transform: translateY(4px) scale(1.03, 0.96); } 44% { transform: translateY(-4px) scale(0.98, 1.02) rotate(-1.5deg); } 62% { transform: translateY(0px); } }
+@keyframes pero-03-collar-l { 0%, 100% { transform: rotate(0deg); } 44% { transform: rotate(-8.5deg) translateY(-3px); } }
+@keyframes pero-03-lanyard { 0%, 100% { transform: translateY(0px) rotate(0deg); } 44% { transform: translateY(-3px) rotate(5deg); } 60% { transform: translateY(1px) rotate(-3deg); } }
+@keyframes pero-03-head { 0%, 100% { transform: rotate(0deg); } 18% { transform: rotate(1.5deg); } 46% { transform: rotate(-4.5deg); } }
+@keyframes pero-03-cap { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-3.5deg) translateY(-1px); } }
+@keyframes pero-03-emblem { 0%, 30%, 72%, 100% { transform: scale(1); } 48% { transform: scale(1.18); } }
+@keyframes pero-03-thumb { 0%, 100% { transform: rotate(0deg); } 18% { transform: rotate(6deg) translateY(3px); } 42% { transform: rotate(-13deg) translateY(-4px); } 56% { transform: rotate(3.5deg); } 70% { transform: rotate(0deg); } }
+@keyframes pero-03-arm-r { 0%, 100% { transform: rotate(0deg); } 44% { transform: rotate(-7deg); } }
+@keyframes pero-03-brow { 0%, 100% { transform: translateY(0px); } 45% { transform: translateY(-3.5px) rotate(-3deg); } }
+@keyframes pero-03-lens { 0%, 32% { transform: translateX(-90px); opacity: 0; } 48% { opacity: 0.72; } 66%, 100% { transform: translateX(90px); opacity: 0; } }
+@keyframes pero-03-spark-a { 0%, 30%, 76%, 100% { opacity: 0.25; transform: scale(0.6) rotate(-15deg); } 48% { opacity: 1; transform: scale(1.32) rotate(45deg); } }
+@keyframes pero-03-spark-b { 0%, 35%, 82%, 100% { opacity: 0.25; transform: scale(0.65); } 52% { opacity: 1; transform: scale(1.25) translateY(-4px); } }
+@keyframes pero-03-ring { 0%, 34% { opacity: 0; transform: scale(0.6); } 48% { opacity: 0.75; transform: scale(1.1); } 80%, 100% { opacity: 0; transform: scale(2.2); } }
+
+/* 04: recording-active — Live director with telemetry sonar & weight-tracking shadow */
+.pero-motion-recording-active .pero-shadow-anim { animation: pero-04-shadow calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 484px; }
+.pero-motion-recording-active .pero-foot-shadow-l { animation: pero-04-fshad-l calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 194px 479px; }
+.pero-motion-recording-active .pero-foot-shadow-r { animation: pero-04-fshad-r calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 324px 479px; }
+.pero-motion-recording-active .pero-body-anim { animation: pero-04-body calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 464px; }
+.pero-motion-recording-active .pero-collar-r-anim { animation: pero-04-collar-r calc(0.8s / var(--pero-speed)) ease-in-out infinite calc(0.05s / var(--pero-speed)); transform-origin: 296px 324px; }
+.pero-motion-recording-active .pero-pocket-anim { animation: pero-04-pocket calc(0.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 317px 358px; }
+.pero-motion-recording-active .pero-head-anim { animation: pero-04-head calc(1.6s / var(--pero-speed)) ease-in-out infinite calc(0.06s / var(--pero-speed)); transform-origin: 256px 290px; }
+.pero-motion-recording-active .pero-cap-anim { animation: pero-04-cap calc(1.6s / var(--pero-speed)) ease-in-out infinite calc(0.12s / var(--pero-speed)); transform-origin: 256px 120px; }
+.pero-motion-recording-active .pero-flipper-right-anim { animation: pero-04-cue calc(0.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 348px 326px; }
+.pero-motion-recording-active .pero-flipper-left-anim { animation: pero-04-arm-l calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 162px 328px; }
+.pero-motion-recording-active .pero-brow-l-anim { animation: pero-04-brow calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 214px 184px; }
+.pero-motion-recording-active .pero-brow-r-anim { animation: pero-04-brow calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 318px 184px; }
+.pero-motion-recording-active .pero-pupil-anim { animation: pero-04-pupil calc(1.6s / var(--pero-speed)) ease-in-out infinite; }
+.pero-motion-recording-active .pero-beak-lower-anim { animation: pero-04-beak calc(0.8s / var(--pero-speed)) ease-in-out infinite; transform-origin: 262px 245px; }
+.pero-motion-recording-active .pero-lens-sweep-anim { animation: pero-lens-sweep calc(2.4s / var(--pero-speed)) ease-in-out infinite; }
+.pero-motion-recording-active .pero-prop-anim { animation: pero-04-badge calc(1.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 0px 0px; }
+.pero-motion-recording-active .pero-prop-pulse { animation: pero-04-pulse calc(1s / var(--pero-speed)) ease-in-out infinite; transform-origin: -16px 0px; }
+.pero-motion-recording-active .pero-prop-ring { animation: pero-04-ring calc(1s / var(--pero-speed)) ease-out infinite; transform-origin: -16px 0px; }
+.pero-motion-recording-active .pero-prop-ring-2 { animation: pero-04-ring calc(1s / var(--pero-speed)) ease-out infinite calc(0.45s / var(--pero-speed)); transform-origin: -16px 0px; }
+.pero-motion-recording-active .pero-eq-1 { animation: pero-04-eq calc(0.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 4.5px 7px; }
+.pero-motion-recording-active .pero-eq-2 { animation: pero-04-eq calc(0.6s / var(--pero-speed)) ease-in-out infinite calc(0.15s / var(--pero-speed)); transform-origin: 12.5px 9px; }
+.pero-motion-recording-active .pero-eq-3 { animation: pero-04-eq calc(0.6s / var(--pero-speed)) ease-in-out infinite calc(0.3s / var(--pero-speed)); transform-origin: 20.5px 6px; }
+.pero-motion-recording-active .pero-eq-4 { animation: pero-04-eq calc(0.6s / var(--pero-speed)) ease-in-out infinite calc(0.42s / var(--pero-speed)); transform-origin: 28.5px 8px; }
+@keyframes pero-04-shadow { 0%, 100% { transform: translateX(-4px) scaleX(0.98); opacity: 0.98; } 50% { transform: translateX(4px) scaleX(1.03); opacity: 1.06; } }
+@keyframes pero-04-fshad-l { 0%, 100% { transform: scale(1.06, 1.04); opacity: 1.08; } 50% { transform: scale(0.92, 0.94); opacity: 0.84; } }
+@keyframes pero-04-fshad-r { 0%, 100% { transform: scale(0.92, 0.94); opacity: 0.84; } 50% { transform: scale(1.08, 1.04); opacity: 1.12; } }
+@keyframes pero-04-body { 0%, 100% { transform: translate(-4px, 0px) rotate(-1deg); } 50% { transform: translate(4px, 2.5px) rotate(1.5deg); } }
+@keyframes pero-04-collar-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5.5deg) translateY(-2px); } }
+@keyframes pero-04-pocket { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-2px); } }
+@keyframes pero-04-head { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(3.2deg); } }
+@keyframes pero-04-cap { 0%, 100% { transform: rotate(-0.8deg); } 50% { transform: rotate(2.6deg); } }
+@keyframes pero-04-cue { 0%, 100% { transform: rotate(3deg); } 35% { transform: rotate(-10deg) translateY(-4px); } 65% { transform: rotate(0deg); } }
+@keyframes pero-04-arm-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-5deg); } }
+@keyframes pero-04-brow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(1.6px); } }
+@keyframes pero-04-pupil { 0%, 100% { transform: translate(-3.5px, 0px); } 50% { transform: translate(4px, -1px); } }
+@keyframes pero-04-beak { 0%, 100% { transform: scaleY(1); } 50% { transform: translateY(1.4px) scaleY(1.07); } }
+@keyframes pero-04-badge { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+@keyframes pero-04-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.68); opacity: 0.55; } }
+@keyframes pero-04-ring { 0% { opacity: 0.78; transform: scale(0.9); } 100% { opacity: 0; transform: scale(2.2); } }
+@keyframes pero-04-eq { 0%, 100% { transform: scaleY(0.45); opacity: 0.6; } 50% { transform: scaleY(1.3); opacity: 1; } }
+
+/* 05: capture-paused — Suspended cozy sigh & grounded thick shadow */
+.pero-motion-capture-paused .pero-shadow-anim { animation: pero-05-shadow calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 484px; }
+.pero-motion-capture-paused .pero-foot-shadow-l,
+.pero-motion-capture-paused .pero-foot-shadow-r { animation: pero-05-fshad calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 479px; }
+.pero-motion-capture-paused .pero-body-anim { animation: pero-05-body calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 464px; }
+.pero-motion-capture-paused .pero-jacket-hem-anim { animation: pero-05-hem calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 256px 404px; }
+.pero-motion-capture-paused .pero-pocket-anim { animation: pero-05-pocket calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.12s / var(--pero-speed)); transform-origin: 317px 358px; }
+.pero-motion-capture-paused .pero-tail-anim { animation: pero-05-tail calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 156px 412px; }
+.pero-motion-capture-paused .pero-head-anim { animation: pero-05-head calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.1s / var(--pero-speed)); transform-origin: 256px 290px; }
+.pero-motion-capture-paused .pero-cap-anim { animation: pero-05-cap calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.16s / var(--pero-speed)); transform-origin: 256px 120px; }
+.pero-motion-capture-paused .pero-brow-l-anim,
+.pero-motion-capture-paused .pero-brow-r-anim { animation: pero-05-brow calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 266px 186px; }
+.pero-motion-capture-paused .pero-beak-lower-anim { animation: pero-05-beak calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 262px 245px; }
+.pero-motion-capture-paused .pero-monocle-cord-anim { animation: pero-05-cord calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.18s / var(--pero-speed)); transform-origin: 164px 202px; }
+.pero-motion-capture-paused .pero-lanyard-anim { animation: pero-05-lanyard calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.16s / var(--pero-speed)); transform-origin: 256px 322px; }
+.pero-motion-capture-paused .pero-flipper-left-anim { animation: pero-05-arm-l calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 162px 328px; }
+.pero-motion-capture-paused .pero-flipper-right-anim { animation: pero-05-arm-r calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 350px 328px; }
+.pero-motion-capture-paused .pero-prop-anim { animation: pero-05-badge calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: 0px 0px; }
+.pero-motion-capture-paused .pero-prop-ring { animation: pero-05-ring calc(2.6s / var(--pero-speed)) ease-out infinite; transform-origin: 0px 0px; }
+.pero-motion-capture-paused .pero-pause-bar-l { animation: pero-05-bar calc(2.6s / var(--pero-speed)) ease-in-out infinite; transform-origin: -6px 0px; }
+.pero-motion-capture-paused .pero-pause-bar-r { animation: pero-05-bar calc(2.6s / var(--pero-speed)) ease-in-out infinite calc(0.28s / var(--pero-speed)); transform-origin: 6px 0px; }
+@keyframes pero-05-shadow { 0%, 100% { transform: scaleX(1); opacity: 0.98; } 50% { transform: scaleX(1.055); opacity: 1.12; } }
+@keyframes pero-05-fshad { 0%, 100% { transform: scale(1, 1); opacity: 1; } 50% { transform: scale(1.05, 1.04); opacity: 1.15; } }
+@keyframes pero-05-body { 0%, 100% { transform: translateY(0px) scale(1, 1); } 50% { transform: translateY(4px) scale(1.026, 0.97); } }
+@keyframes pero-05-hem { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(1.032); } }
+@keyframes pero-05-pocket { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(2px); } }
+@keyframes pero-05-tail { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes pero-05-head { 0%, 100% { transform: rotate(-0.5deg); } 50% { transform: rotate(2.8deg); } }
+@keyframes pero-05-cap { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(2deg); } }
+@keyframes pero-05-brow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(1.8px); } }
+@keyframes pero-05-beak { 0%, 100% { transform: scaleY(1); } 50% { transform: translateY(1.2px) scaleY(1.07); } }
+@keyframes pero-05-cord { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3.2deg); } }
+@keyframes pero-05-lanyard { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.4deg); } }
+@keyframes pero-05-arm-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(4deg); } }
+@keyframes pero-05-arm-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-4deg); } }
+@keyframes pero-05-badge { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-6px) scale(1.04); } }
+@keyframes pero-05-ring { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 0.85; transform: scale(1.22); } }
+@keyframes pero-05-bar { 0%, 100% { opacity: 0.72; transform: translateY(0px); } 50% { opacity: 1; transform: translateY(-2.5px); } }
