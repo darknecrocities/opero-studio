@@ -168,8 +168,8 @@
           <text x="728" y="158" font-size="11" fill="#69BCFC">• SHA256SUMS + latest.json Official Auto-Updater</text>
 
           <rect x="24" y="210" width="1032" height="64" rx="10" fill="#FFFFFF" stroke="#E2EAF2"/>
-          <text x="42" y="236" font-size="11.5" font-weight="700" fill="#0F172A">Companion Docs &amp; Mascot Portal (GitHub Pages)</text>
-          <text x="42" y="256" font-size="11" fill="#526071">assets/images/mascot/pero-motions/ mirrors to darknecrocities/opero-studio (main) → Live at https://darknecrocities.github.io/opero-studio/</text>
+          <text x="42" y="236" font-size="11.5" font-weight="700" fill="#0F172A">Companion Docs &amp; Mascot Portal (PDF Export &amp; Managed Preview)</text>
+          <text x="42" y="256" font-size="11" fill="#526071">assets/images/mascot/pero-motions/ exports clean print-ready PDFs and deploys to Vercel/Cloudflare (migrating to MMI-managed org)</text>
         </svg>
       `,
     },

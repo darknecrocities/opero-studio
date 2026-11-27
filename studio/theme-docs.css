@@ -586,3 +586,14 @@
   height: auto;
   display: block;
 }
+
+@media print {
+  .topbar, .docs-toc, .docs-filter-strip, .search-wrap, #docsPrintBtn, .doc-diagram-actions {
+    display: none !important;
+  }
+  .docs-shell { padding: 0; max-width: 100%; }
+  .docs-layout { display: block; }
+  .doc-article { border: none; padding: 12px 0; page-break-inside: avoid; break-inside: avoid; }
+  .doc-diagram-card, .doc-table-wrap { break-inside: avoid; page-break-inside: avoid; }
+  .doc-diagram-canvas svg { min-width: 0; width: 100%; height: auto; }
+}
