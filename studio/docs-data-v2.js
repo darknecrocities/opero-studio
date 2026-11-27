@@ -69,9 +69,26 @@
       paragraphs: [
         'Meeting Notes (⌘4) enables users to record meetings happening in Zoom, Microsoft Teams, Google Meet, Slack, or any desktop application at the OS level. On macOS, OPERO compiles a native Swift helper (opero-audio-tap) built on AVAudioEngine and on-device SFSpeechRecognizer; on Windows, it targets WASAPI Loopback + microphone capture. Raw 16 kHz mono PCM WAV audio is persisted safely before inference begins ([ARCH-001]).',
         'When the user stops recording, OPERO smoothly dims the viewport and centers the animated Pero Mascot (PeroCompilingOverlay) through three transparent stages: transcribing OS audio, translating the script across English, Japanese, and Filipino, and compiling an Executive Summary, Key Decisions, and Owner Action Items. Compiled notes are automatically indexed into Dual-Core Vector RAG so Pero Agent can answer questions about past meetings, and can be exported to PDF, DOCX, HTML, or Markdown.',
-        'Document Analyzer (⌘3) ingests .pdf, .docx, .doc, .txt, and .md files locally via doc_parser.rs, identifies missing fields and structural sections, and lets users place manual or automatic Box, Arrow, and Crop annotations with editable explanations and reasoning inside a clean, badge-free resizable split view.'
+        'Document Analyzer v2 (⌘3) ingests .pdf, .docx, .doc, .txt, and .md files locally via doc_parser.rs, automatically detects source language (Japanese ja-JP, English en-US, Filipino fil-PH) and auto-translates foreign content into the user’s target language via Local AI, and generates a comprehensive 8-section structured analysis report persisted in SQLite history. Users can place manual Box, Arrow, and Crop annotations with dynamic Local AI translations & explanations, download the full 8-section report directly as PDF, DOCX, HTML, or Markdown, and seamlessly query uploaded documents in Pero Agent (⌘5)—while deleting any document from Document Analyzer atomically purges all linked chunks, FTS5 entries, and vectors from Pero Agent memory.'
       ],
       diagrams: ['meeting-pipeline', 'analyzer-sequence'],
+      tables: [
+        {
+          caption: 'Document Analyzer v2 — 8-Section Structured Report & RAG Lifecycle',
+          headers: ['Section', 'Scope & Output', 'Persistence & Pero Agent RAG'],
+          rowIcons: ['docs', 'globe', 'sparkles', 'rocket', 'lock', 'bookmark', 'cube', 'feather'],
+          rows: [
+            ['01 · Executive Overview', 'Document classification, word count, primary language, completeness score, SHA-256.', 'Saved in SQLite analyzed_documents + Core 1 RAG.'],
+            ['02 · Auto-Translation', 'Detects Japanese/non-target text automatically; side-by-side original ↔ translated blocks + EN/JA/FIL switcher.', 'Translated blocks indexed in Pero Agent memory.'],
+            ['03 · Key Findings', 'Concrete extracted facts, dates, metrics, and rules grounded in parsed blocks.', 'Queryable in Pero Agent (⌘5) with citations.'],
+            ['04 · Action Items', 'Prioritized follow-up steps and recommended fixes derived from annotations.', 'Included in PDF/DOCX/HTML/MD downloads.'],
+            ['05 · Risks & Compliance Gaps', 'Unfilled table cells, missing sign-offs, and policy warning notices.', 'Highlighted on canvas & summary report.'],
+            ['06 · Protected Glossary', 'Domain acronyms and bilingual slash pairs preserved verbatim during translation.', 'Enforced across EN / polite JA / FIL outputs.'],
+            ['07 · Structure Outline', 'Detected headings, tables, and block hierarchy map.', 'Powers instant block-level inspection.'],
+            ['08 · Manual & AI Annotations', 'All Box, Arrow, and Crop regions with editable Local AI explanations & reasoning.', 'Re-synced to RAG on save; purged atomically on delete.'],
+          ],
+        },
+      ],
     },
     {
       id: 'ch-security-cicd',

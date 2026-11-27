@@ -44,25 +44,25 @@
           <line x1="938" y1="92" x2="938" y2="352" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="4 4"/>
 
           <path d="M 124 128 L 380 128" stroke="#0F172A" stroke-width="1.6" marker-end="url(#op-arr2)"/>
-          <text x="252" y="121" text-anchor="middle" font-size="11" fill="#0F172A">1. POST /analyzer/ingest (.pdf/.docx/.txt)</text>
+          <text x="252" y="121" text-anchor="middle" font-size="11" fill="#0F172A">1. POST /analyzer/ingest (.pdf/.docx/.txt/.md)</text>
 
           <path d="M 384 156 L 653 156" stroke="#2D8FED" stroke-width="1.6" marker-end="url(#op-arr2-sky)"/>
-          <text x="518" y="149" text-anchor="middle" font-size="11" fill="#2D8FED">2. Extract blocks, tables, blanks &amp; locales</text>
+          <text x="518" y="149" text-anchor="middle" font-size="11" fill="#2D8FED">2. Parse blocks, detect JA/EN/FIL &amp; Auto-Translate + 8 Sections</text>
 
           <path d="M 657 186 L 934 186" stroke="#0F172A" stroke-width="1.6" marker-end="url(#op-arr2)"/>
-          <text x="795" y="179" text-anchor="middle" font-size="11" fill="#0F172A">3. Persist AnalyzedDocument + Auto Callouts</text>
+          <text x="795" y="179" text-anchor="middle" font-size="11" fill="#0F172A">3. Save History + Sync Dual-Core RAG (Pero Agent ⌘5)</text>
 
           <path d="M 380 218 L 128 218" stroke="#2D8FED" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#op-arr2-sky)"/>
-          <text x="252" y="211" text-anchor="middle" font-size="11" fill="#526071">4. Render resizable Canvas + Inspector</text>
+          <text x="252" y="211" text-anchor="middle" font-size="11" fill="#526071">4. Render Canvas + 8-Section Structured Report &amp; Translation</text>
 
           <path d="M 124 256 L 653 256" stroke="#0F172A" stroke-width="1.6" marker-end="url(#op-arr2)"/>
-          <text x="388" y="249" text-anchor="middle" font-size="11" fill="#0F172A">5. Manual Box / Arrow / Crop -> POST /analyzer/explain-region (Ollama / Offline)</text>
+          <text x="388" y="249" text-anchor="middle" font-size="11" fill="#0F172A">5. Manual Box/Arrow/Crop -&gt; Local AI Explain &amp; Re-sync RAG</text>
 
-          <path d="M 124 298 L 380 298" stroke="#0F172A" stroke-width="1.6" marker-end="url(#op-arr2)"/>
-          <text x="252" y="291" text-anchor="middle" font-size="11" fill="#0F172A">6. POST /analyzer/documents/:id/report</text>
+          <path d="M 124 294 L 934 294" stroke="#2D8FED" stroke-width="1.8" marker-end="url(#op-arr2-sky)"/>
+          <text x="529" y="287" text-anchor="middle" font-size="11" font-weight="600" fill="#2D8FED">6. POST /documents/:id/download -&gt; Direct PDF / DOCX / HTML / MD Report</text>
 
-          <path d="M 384 328 L 934 328" stroke="#2D8FED" stroke-width="1.8" marker-end="url(#op-arr2-sky)"/>
-          <text x="659" y="321" text-anchor="middle" font-size="11" font-weight="600" fill="#2D8FED">7. Compile Manual -> Open in Studio or Export PDF / DOCX / HTML / MD</text>
+          <path d="M 124 332 L 934 332" stroke="#C43D4B" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#op-arr2)"/>
+          <text x="529" y="325" text-anchor="middle" font-size="11" font-weight="600" fill="#C43D4B">7. DELETE /documents/:id -&gt; Atomic Purge (History + Pero Agent RAG + Vectors)</text>
         </svg>
       `,
     },
