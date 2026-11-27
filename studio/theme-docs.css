@@ -245,8 +245,8 @@
 
 .docs-layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 32px;
+  grid-template-columns: 224px minmax(0, 1fr);
+  gap: 28px;
   align-items: start;
 }
 
@@ -254,19 +254,30 @@
 
 .docs-toc {
   position: sticky;
-  top: 82px;
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid var(--border-glass);
-  background: var(--bg-glass);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-specular), var(--glass-shadow);
+  top: 78px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 4px 10px 12px 0;
 }
+
+.docs-toc-group { margin-bottom: 14px; }
+.docs-toc-group:last-child { margin-bottom: 0; }
+.docs-toc-group-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: 0 0 5px 10px;
+  opacity: 0.82;
+}
+.docs-toc-items { border-left: 1px solid var(--border); margin-left: 4px; }
 
 @media (max-width: 1020px) {
   .docs-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .docs-toc { position: static; }
+  .docs-toc { position: static; max-height: none; overflow: visible; padding: 0; }
 }
 
 @media (max-width: 720px) {
@@ -277,20 +288,36 @@
 .toc-link {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   width: 100%;
   text-align: left;
-  padding: 7px 10px;
-  border-radius: 8px;
+  padding: 5px 8px 5px 11px;
+  margin-left: -1px;
   border: none;
   border-left: 2px solid transparent;
+  border-radius: 0 6px 6px 0;
   background: transparent;
   color: var(--ink-muted);
   font-family: var(--font-sans);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
+  line-height: 1.35;
   cursor: pointer;
-  margin-bottom: 2px;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  opacity: 0.72;
+  flex-shrink: 0;
+}
+
+.toc-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .toc-link:hover { background: var(--bg-subtle); color: var(--ink); }
@@ -300,6 +327,7 @@
   color: var(--ink);
   font-weight: 700;
 }
+.toc-link.active .toc-num { color: var(--ink); opacity: 1; }
 
 .doc-article-head {
   display: flex;

@@ -48,15 +48,13 @@
       diagrams: ['agent-rag-flow'],
       tables: [
         {
-          caption: 'Hardware-Aware Local Model Catalog (EN · JA · FIL)',
-          headers: ['Display Name', 'Model Tag', 'Recommended RAM', 'Primary Strength'],
-          rowIcons: ['sparkles', 'bot', 'eye', 'lightbulb', 'lock'],
+          caption: 'Release 1 ISMS-Approved Local Model Catalog (HP ProBook 450 G8 Baseline)',
+          headers: ['Display Name', 'Model Tag', 'Measured RAM', 'Release 1 Role & Strength'],
+          rowIcons: ['laptop', 'sparkles', 'lock'],
           rows: [
-            ['Qwen3 Compact', 'qwen3:1.7b', '8 GB+', 'Fast step-by-step reasoning, daily chat, and EN/JA/FIL summaries on everyday laptops.'],
-            ['Qwen3 Balanced', 'qwen3:4b', '16 GB+', 'Sharper document analysis, bilingual meeting translation, and SOP drafting.'],
-            ['Gemma 3 Vision', 'gemma3:4b', '16 GB+', 'Reads captured screenshots and visual documents alongside clear writing.'],
-            ['Qwen3 Deep', 'qwen3:8b', '32 GB+', 'Deepest multi-step reasoning and nuanced bilingual corporate phrasing.'],
-            ['Built-In Offline', 'offline', '4 GB+', 'Zero-download deterministic structural checks, glossary grounding, and offline export.'],
+            ['Qwen2.5 3B (Standard)', 'qwen2.5:3b', '1.94 GB (2.54 GB total)', 'Release 1 Standard for HP ProBook 450 G8 (16 GB CPU-only, <= 6 GB cap). Apache-2.0, 33.1 tok/s CPU-only, 90/100 SOP quality.'],
+            ['Qwen3 1.7B (Lighter Fallback)', 'qwen3:1.7b', '1.13 GB (1.73 GB total)', 'Release 1 Lighter Fallback for 8 GB or constrained PCs. Apache-2.0, 52.2 tok/s CPU-only, 90/100 SOP quality.'],
+            ['Built-In Offline', 'offline', '0 GB model RAM', 'Zero-download deterministic structural checks, glossary grounding, and offline export when Ollama is not provisioned.'],
           ],
         },
       ],
@@ -84,7 +82,7 @@
       lead: 'Defense-in-depth local trust boundaries, fluid 280ms slide transitions, single-instance desktop installers, and 8-check GitHub Actions promotion.',
       paragraphs: [
         'Every piece of screen text, OCR output, uploaded document content, and meeting transcript is treated as untrusted input ([SEC-001]) and isolated with escaped delimiters before reaching any LLM prompt. Password managers (1Password, Keychain) and sensitive fields are filtered before disk write, loopback-only URL validation blocks SSRF against RFC 1918 and cloud metadata endpoints, and Studio visual blurs are strictly separated from irreversible pixel redaction in exported PDFs and PNGs.',
-        'The desktop workspace enforces OPERO’s calm White / Sky Blue (#69BCFC) / Black (#0F172A) palette with draggable ResizeHandle splitters (persisted widths), smooth 280ms spring slide animations for sidebar collapse, staggered Dashboard Quick Launch tiles, and live EN/JA/FIL localization across every screen.',
+        'The desktop workspace shares onboarding’s unified warm white-and-light-grayish palette (--bg-canvas radial #FAF9F7 → #F2F1EE → #ECEBE7, --bg-surface #FAF9F7, --bg-subtle #EAE8E3, --border #DDDAD3) with Pero Sky Blue (#69BCFC) and Crisp Black (#0F172A) accents, draggable ResizeHandle splitters (persisted widths), smooth 280ms spring slide animations for sidebar collapse, warm Kokoro-82M neural EN/JA Pero onboarding voices, staggered Dashboard Quick Launch tiles, and live EN/JA/FIL localization across every screen.',
         'Every feature branch must pass 5 local CI parity gates (scripts/verify_ci_local.sh — 500-line ceiling across all files, Rust workspace tests, Python live daemon stress tests, TypeScript + 420 Vitest cases, and 4-viewport Playwright E2E) before opening a PR to develop (8 GitHub Actions checks), fast-forwarding to staging, and promoting to main for official macOS (.dmg) and Windows (.exe) releases.'
       ],
       diagrams: ['security-boundary', 'cicd-release'],

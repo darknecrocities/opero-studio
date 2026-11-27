@@ -8,7 +8,7 @@
 
   const CATEGORIES = [
     ['all', 'All Chapters', 'book'],
-    ['diagrams', 'Diagrams (7)', 'compass'],
+    ['diagrams', 'Diagrams (10)', 'compass'],
     ['features', 'Concept & Features', 'lightbulb'],
     ['design', 'Design & Mascot', 'palette'],
     ['pipeline', 'Pipeline & Meetings', 'windmill'],
@@ -106,12 +106,38 @@
         renderChapters();
       }));
 
-      document.getElementById('docsTocList').innerHTML = D.CHAPTERS.map((ch) => `
-        <button type="button" class="toc-link ${ch.id === activeChapterId ? 'active' : ''}" data-toc="${ch.id}">
-          ${ico(ch.icon || 'book', 17)}
-          <span>${ch.number}. ${escapeHtml(ch.title)}</span>
-        </button>
-      `).join('');
+      const tocGroups = [
+        { label: 'Product & Design', cats: ['features', 'design', 'compatibility'] },
+        { label: 'Pipeline & Local AI', cats: ['pipeline', 'ai', 'stack', 'speech'] },
+        { label: 'Architecture & Delivery', cats: ['diagrams', 'security', 'timeline'] },
+      ];
+      const usedIds = new Set();
+      const groupHtml = tocGroups.map((grp) => {
+        const items = D.CHAPTERS.filter((ch) => grp.cats.includes(ch.category) && !usedIds.has(ch.id));
+        items.forEach((ch) => usedIds.add(ch.id));
+        if (!items.length) return '';
+        return `
+          <div class="docs-toc-group">
+            <div class="docs-toc-group-label">${grp.label}</div>
+            <div class="docs-toc-items">
+              ${items.map((ch) => `
+                <button type="button" class="toc-link ${ch.id === activeChapterId ? 'active' : ''}" data-toc="${ch.id}" title="${escapeHtml(ch.number + '. ' + ch.title)}">
+                  <span class="toc-num">${escapeHtml(ch.number)}</span>
+                  <span class="toc-label">${escapeHtml(ch.title)}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>`;
+      }).join('');
+      const ungrouped = D.CHAPTERS.filter((ch) => !usedIds.has(ch.id));
+      const extraHtml = ungrouped.length
+        ? `<div class="docs-toc-group"><div class="docs-toc-group-label">More</div><div class="docs-toc-items">${ungrouped.map((ch) => `
+            <button type="button" class="toc-link ${ch.id === activeChapterId ? 'active' : ''}" data-toc="${ch.id}" title="${escapeHtml(ch.number + '. ' + ch.title)}">
+              <span class="toc-num">${escapeHtml(ch.number)}</span>
+              <span class="toc-label">${escapeHtml(ch.title)}</span>
+            </button>`).join('')}</div></div>`
+        : '';
+      document.getElementById('docsTocList').innerHTML = groupHtml + extraHtml;
       document.querySelectorAll('#docsTocList button').forEach((b) => b.addEventListener('click', () => {
         activeChapterId = b.dataset.toc;
         if (activeCat !== 'all') { activeCat = 'all'; renderChapters(); }
@@ -259,6 +285,25 @@
 
       if (global.PeroIcons && global.PeroIcons.animateVisibleBurst) {
         global.PeroIcons.animateVisibleBurst(box);
+      }
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        if (box._tocObserver) box._tocObserver.disconnect();
+        const obs = new IntersectionObserver(
+          (entries) => {
+            const visible = entries.find((e) => e.isIntersecting);
+            if (!visible) return;
+            activeChapterId = visible.target.id;
+            document.querySelectorAll('#docsTocList button').forEach((x) => {
+              const isAct = x.dataset.toc === activeChapterId;
+              x.classList.toggle('active', isAct);
+              if (isAct) x.scrollIntoView({ block: 'nearest' });
+            });
+          },
+          { rootMargin: '-90px 0px -65% 0px', threshold: 0 },
+        );
+        box.querySelectorAll('.doc-article[id]').forEach((el) => obs.observe(el));
+        box._tocObserver = obs;
       }
     };
 
